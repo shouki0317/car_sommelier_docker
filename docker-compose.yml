@@ -1,0 +1,16 @@
+services:
+  app:
+    container_name: app
+    build: ./docker/php
+    volumes:
+      - ./car_sommelier:/app
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.27-alpine
+    ports:
+      - 8000:80
+    volumes:
+      - ./car_sommelier:/app
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /app
